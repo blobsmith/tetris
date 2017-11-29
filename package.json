@@ -1,0 +1,18 @@
+{
+  "name": "tetris",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "konva": "^1.7.6",
+    "react": "^16.1.0-beta",
+    "react-dom": "^16.1.0-beta",
+    "react-konva": "^1.5.5-beta",
+    "react-scripts": "1.0.16"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
