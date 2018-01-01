@@ -1,95 +1,62 @@
 import React  from 'react';
-import GameComponent from '../components/Game.jsx';
+import GameComponent from '../components/Game';
 import '../styles/Game.css';
+import { newShapeAction, fallDownAction } from '../actions';
+import { connect } from 'react-redux';
 
-var game_interval = 20;
-
+import {Layer, Stage} from 'react-konva';
+import Controller from '../containers/Controller';
 
 class Game extends React.Component  {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      itemXPosition: 0,
-      itemYPosition: 0,
+      shapes: ['LShape', 'InverseLShape', 'SquareShape', 'ZShape', 'InverseZShape', 'TriangleShape', 'BarShape'],
+      currentShape: null
     };
+    this.getNextShape();
+  }
+
+  getNextShape() {
+    const randomNumber = Math.floor((Math.random() * 6));
+    this.state.currentShape = this.state.shapes[randomNumber];
+    // this.newShape(this.state.currentShape.getCoordinates());
   }
 
   componentDidMount() {
-    this.setInitialPosition();
     var self = this;
     this.timerID = setInterval(function() {
-      self.goDown.apply(self)
+      self.props.fallDown();
     }, 1000);
   }
 
-
-  setInitialPosition() {
-    this.setState({
-      itemXPosition: 120,
-      itemYPosition: 20
-    });
-  }
-
-  /**
-   * Go down the current shape.
-   */
-  goDown () {
-    let yPosition = this.state.itemYPosition;
-    yPosition += game_interval;
-    this.setState( {
-      itemYPosition: yPosition
-    });
-  }
-
-  onMoveEvent (e){
-    let key_used = true;
-    let xPosition = this.state.xPosition;
-    let yPosition = this.state.yPosition;
-
-    switch (e.keyCode) {
-
-      // Left
-      case 37:
-        xPosition -= game_interval;
-        break;
-
-        // Up : todo -> call the rotate function.
-      case 38:
-        // xPosition -= this.state.interval;
-        break;
-
-      // Right
-      case 39:
-        xPosition += game_interval;
-        break;
-
-      // Down
-      case 40:
-        yPosition += game_interval;
-        break;
-
-      default:
-        key_used = false;
-    }
-
-    if (key_used) {
-      e.preventDefault();
-      this.setState({
-        itemXPosition: xPosition,
-        itemYPosition: yPosition,
-      });
-    }
-  }
-
   render() {
-    return <GameComponent
-        game={this}
-        onMove={this.callMoveEvent}
-        xPosition={this.state.itemXPosition}
-        yPosition={this.state.itemYPosition}
-    />;
+    const ShapeName = this.state.currentShape;
+
+    return (
+        <GameComponent currentShape={this.state.currentShape} xPosition={this.props.coordinate.x} yPosition={this.props.coordinate.y} />
+    );
   }
 }
 
-export default Game;
+const mapStatesToProps = (state) => {
+  return {
+    coordinate: state.coordinate,
+    shapeCoordinate: state.shapeCoordinate
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fallDown: () => {
+      dispatch(fallDownAction());
+    },
+    newShape: (shapeCoordinate) => {
+      dispatch(newShapeAction(shapeCoordinate));
+    }
+  }
+};
+
+export default connect(mapStatesToProps, mapDispatchToProps)(Game);

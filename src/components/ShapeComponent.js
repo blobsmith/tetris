@@ -23,8 +23,6 @@ const ShapeComponent = ( props ) => (
     // Konva specific method
     ctx.fillStrokeShape(this);
     }}
-        // onDragEnd={props.changeSize}
-        // onDragStart={props.changeSize}
     />
 )
 
