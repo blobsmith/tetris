@@ -5,11 +5,11 @@ const Controller = ( props ) => (
         <div id="control-panel">
             <div id="control-panel-container">
                 <div>
-                    <button id="button-rotate">Rotate</button>
+                    <button id="button-rotate" onClick={props.buttonclick} >Rotate</button>
                 </div>
                 <div>
-                    <button className="button-center">Left</button>
-                    <button className="button-center">Right</button>
+                    <button id="button-left" className="button-center" onClick={props.buttonclick} >Left</button>
+                    <button id="button-right" className="button-center" onClick={props.buttonclick} >Right</button>
                 </div>
                 <div>
                     <button id="button-down">Falling down</button>

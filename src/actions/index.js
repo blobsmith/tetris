@@ -3,9 +3,8 @@ export const newShapeAction = (shapeCoordinate) => ({
   payload: shapeCoordinate
 });
 
-export const rotateAction = (shapeCoordinate) => ({
-  type: 'ROTATE',
-  payload: shapeCoordinate
+export const rotateAction = () => ({
+  type: 'ROTATE'
 });
 
 export const fallDownAction = () => ({
@@ -18,5 +17,9 @@ export const goRightAction = () => ({
 
 export const goLeftAction = () => ({
   type: 'GO_LEFT'
+});
+
+export const goDownAction = () => ({
+  type: 'GO_DOWN'
 });
 

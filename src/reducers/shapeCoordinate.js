@@ -35,18 +35,12 @@ const rotate = (coordinates, reverse = false) => {
 
 const shapeCoordinateReducer = (state = [], action) => {
     switch(action.type) {
-
         case 'NEW_SHAPE':
             return action.payload;
             break;
 
         case 'ROTATE':
-            // action.payload.id = Date.now();
-            // return [...state, action.payload];
-            console.log('ROTATE', state);
-
-
-            return rotate(action.payload);
+            return rotate(state);
             break;
 
         default:

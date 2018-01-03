@@ -2,7 +2,7 @@ import React  from 'react';
 import ReactDOM  from 'react-dom';
 import ControllerComponent from '../components/Controller';
 import '../styles/Controller.css';
-import { rotateAction } from '../actions';
+import { rotateAction, goLeftAction, goRightAction } from '../actions';
 import { connect } from 'react-redux';
 
 class Controller extends React.Component  {
@@ -19,33 +19,44 @@ class Controller extends React.Component  {
     ReactDOM.findDOMNode(this.refs.controlevent).focus();
   }
 
-  onMoveEvent (e){
+  onButtonCick (e) {
+    switch (e.target.id) {
+      case 'button-rotate':
+        this.props.rotate()
+        break;
+
+      case 'button-left':
+        this.props.goLeft()
+        break;
+
+      case 'button-right':
+        this.props.goRight()
+        break;
+    }
+  }
+
+  onKeyEvent (e){
     let key_used = true;
 
     switch (e.keyCode) {
 
         // Left
       case 37:
-        // xPosition -= this.gameInterval;
-        console.log('go left');
+        this.props.goLeft();
         break;
 
         // Up
       case 38:
-        console.log('rotate');
-        this.props.rotate();
-        // xPosition -= this.state.interval;
+        this.props.rotate()
         break;
 
         // Right
       case 39:
-        // xPosition += this.gameInterval;
-        console.log('go right');
+        this.props.goRight();
         break;
 
-        // Down
+        // Fall down
       case 40:
-        // yPosition += this.gameInterval;
         console.log('fall down');
         break;
 
@@ -61,11 +72,11 @@ class Controller extends React.Component  {
   render() {
     return (
         <div>
-          <ControllerComponent />
+          <ControllerComponent buttonclick={(e) => this.onButtonCick.apply(this, [e])}/>
           <div
             ref="controlevent"
             className="control-event"
-            onKeyDown={this.onMoveEvent}
+            onKeyDown={(e) => this.onKeyEvent.apply(this, [e])}
             tabIndex="0">
           </div>
         </div>
@@ -81,8 +92,14 @@ const mapStatesToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    rotate: (shapeCoordinate) => {
-      dispatch(rotateAction(shapeCoordinate));
+    rotate: () => {
+      dispatch(rotateAction());
+    },
+    goLeft: () => {
+      dispatch(goLeftAction());
+    },
+    goRight: () => {
+      dispatch(goRightAction());
     }
   }
 };
