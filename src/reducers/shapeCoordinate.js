@@ -1,4 +1,4 @@
-
+import { isInArea } from '../utils/Utils'
 
 /**
  * Rotate a shape.
@@ -36,11 +36,17 @@ const rotate = (coordinates, reverse = false) => {
 const shapeCoordinateReducer = (state = [], action) => {
     switch(action.type) {
         case 'NEW_SHAPE':
-            return action.payload;
+            return action.payload.coordinates.map(c => {
+                return [c[0] + action.payload.offset[0], c[1] + action.payload.offset[1]];
+            });
             break;
 
         case 'ROTATE':
-            return rotate(state);
+            const shapeCoordinateAfterRotate = rotate(state);
+            if (isInArea(shapeCoordinateAfterRotate, action.coordinate, action.area)) {
+                return shapeCoordinateAfterRotate;
+            }
+            return state;
             break;
 
         default:

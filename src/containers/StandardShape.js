@@ -1,37 +1,16 @@
 import React from 'react';
 import ShapeComponent from '../components/ShapeComponent';
-import { newShapeAction } from '../actions';
 import { connect } from 'react-redux';
-
-// Shapes definitions
-const Shapes = {
-    BarShape: require('../shapes/BarShape'),
-    InverseLShape: require('../shapes/InverseLShape'),
-    InverseZShape: require('../shapes/InverseZShape'),
-    LShape: require('../shapes/LShape'),
-    SquareShape: require('../shapes/SquareShape'),
-    TriangleShape: require('../shapes/TriangleShape'),
-    ZShape: require('../shapes/ZShape')
-};
+import { getShapeRealCoordinate } from '../utils/Utils';
 
 class StandardShape extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-          shape: Shapes[this.props.shape].default
-        };
-        this.props.newShape(this.state.shape.coordinates);
-    }
-
     render() {
+        const coordinates = getShapeRealCoordinate(this.props.shapeCoordinate, [this.props.coordinate.x, this.props.coordinate.y]);
         return (
             <ShapeComponent
-                xPosition={this.props.xPosition}
-                yPosition={this.props.yPosition}
-                color={this.state.shape.color}
-                coordinates={this.props.shapeCoordinate}
+                color={this.props.shape.color}
+                coordinates={coordinates}
             />
         );
     }
@@ -39,16 +18,10 @@ class StandardShape extends React.Component {
 
 const mapStatesToProps = (state) => {
     return {
-        shapeCoordinate: state.shapeCoordinate
+        shapeCoordinate: state.shapeCoordinate,
+        coordinate: state.coordinate,
+        shape: state.shape
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        newShape: (shapeCoordinate) => {
-            dispatch(newShapeAction(shapeCoordinate));
-        }
-    }
-};
-
-export default connect(mapStatesToProps, mapDispatchToProps)(StandardShape);
+export default connect(mapStatesToProps)(StandardShape);

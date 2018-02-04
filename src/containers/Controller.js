@@ -2,7 +2,7 @@ import React  from 'react';
 import ReactDOM  from 'react-dom';
 import ControllerComponent from '../components/Controller';
 import '../styles/Controller.css';
-import { rotateAction, goLeftAction, goRightAction } from '../actions';
+import { rotateAction, goLeftAction, goRightAction, insertShapeInAreaAction } from '../actions';
 import { connect } from 'react-redux';
 
 class Controller extends React.Component  {
@@ -22,15 +22,15 @@ class Controller extends React.Component  {
   onButtonCick (e) {
     switch (e.target.id) {
       case 'button-rotate':
-        this.props.rotate()
+        this.props.rotate(this.props.gameArea, this.props.coordinates);
         break;
 
       case 'button-left':
-        this.props.goLeft()
+        this.props.goLeft(this.props.gameArea, this.props.shapeCoordinate);
         break;
 
       case 'button-right':
-        this.props.goRight()
+        this.props.goRight(this.props.gameArea, this.props.shapeCoordinate);
         break;
     }
   }
@@ -42,17 +42,17 @@ class Controller extends React.Component  {
 
         // Left
       case 37:
-        this.props.goLeft();
+        this.props.goLeft(this.props.gameArea, this.props.shapeCoordinate);
         break;
 
         // Up
       case 38:
-        this.props.rotate()
+        this.props.rotate(this.props.gameArea, this.props.coordinates);
         break;
 
         // Right
       case 39:
-        this.props.goRight();
+        this.props.goRight(this.props.gameArea, this.props.shapeCoordinate);
         break;
 
         // Fall down
@@ -86,20 +86,25 @@ class Controller extends React.Component  {
 
 const mapStatesToProps = (state) => {
   return {
-    shapeCoordinate: state.shapeCoordinate
+    shapeCoordinate: state.shapeCoordinate,
+    gameArea: state.area,
+    coordinates: state.coordinate
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    rotate: () => {
-      dispatch(rotateAction());
+    rotate: (gameArea, coordinate) => {
+      dispatch(rotateAction(gameArea, coordinate));
     },
-    goLeft: () => {
-      dispatch(goLeftAction());
+    goLeft: (gameArea, shapeCoordinate) => {
+      dispatch(goLeftAction(gameArea, shapeCoordinate));
     },
-    goRight: () => {
-      dispatch(goRightAction());
+    goRight: (gameArea, shapeCoordinate) => {
+      dispatch(goRightAction(gameArea, shapeCoordinate));
+    },
+    insertShapeInGameArea: () => {
+      dispatch(insertShapeInAreaAction());
     }
   }
 };

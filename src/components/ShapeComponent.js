@@ -4,17 +4,19 @@ import {Shape} from 'react-konva';
 const ShapeComponent = ( props ) => (
     <Shape
         fill={props.color}
+        stroke="black"
+        opacity="0.62"
     sceneFunc={function (ctx) {
     ctx.beginPath();
     let first = true;
     for (const key in props.coordinates) {
-        let points = props.coordinates[key];
+        let point = props.coordinates[key];
         if (first) {
-            ctx.moveTo(parseInt(props.xPosition) + parseInt(points[0]), parseInt(props.yPosition) + parseInt(points[1]));
+            ctx.moveTo(parseInt(point[0]), parseInt(point[1]));
             first = false;
         }
         else {
-            ctx.lineTo(parseInt(props.xPosition) + parseInt(points[0]), parseInt(props.yPosition) + parseInt(points[1]));
+            ctx.lineTo(parseInt(point[0]), parseInt(point[1]));
         }
     }
     ctx.shadowColor = 'white';
