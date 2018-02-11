@@ -3,7 +3,21 @@ import GameComponent from '../components/Game';
 import '../styles/Game.css';
 import { newShapeAction, goDownAction, newGameAction, initCoordinateAction, insertShapeInAreaAction } from '../actions';
 import { connect } from 'react-redux';
-import { Shapes } from '../utils/Utils';
+
+/**
+ * All available shapes.
+ *
+ * @type {*[]}
+ */
+const shapes = [
+    require('../shapes/BarShape'),
+    require('../shapes/InverseLShape'),
+    require('../shapes/InverseZShape'),
+    require('../shapes/LShape'),
+    require('../shapes/SquareShape'),
+    require('../shapes/TriangleShape'),
+    require('../shapes/ZShape')
+  ];
 
 class Game extends React.Component  {
 
@@ -26,9 +40,8 @@ class Game extends React.Component  {
   }
 
   nextNewShape() {
-    const randomNumber = Math.floor((Math.random() * Shapes.length));
-    // const randomNumber = 2;
-    this.props.newShape(Shapes[randomNumber].default);
+    const randomNumber = Math.floor((Math.random() * shapes.length));
+    this.props.newShape(shapes[randomNumber].default);
   }
 
   componentDidMount() {

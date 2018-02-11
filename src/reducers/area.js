@@ -1,4 +1,4 @@
-import { getShapeRealCoordinate, setShapeInArea, convertPointsToblocks } from '../utils/Utils'
+import blockManagement from '../utils/BlockManagement';
 
 const areaReducer = (state = [], action) => {
     switch(action.type) {
@@ -15,9 +15,8 @@ const areaReducer = (state = [], action) => {
             break;
 
         case 'INSERT_SHAPE_IN_AREA':
-            const shapeRealCoordinate = getShapeRealCoordinate(action.shapeCoordinate, [action.coordinate.x, action.coordinate.y]);
-            const blocks = convertPointsToblocks(shapeRealCoordinate);
-            return setShapeInArea(blocks, state);
+            const blocksRealCoordinates = blockManagement.getBlocksRealCoordinates(action.shapeCoordinate, action.coordinate);
+            return blockManagement.setBlocksInArea(blocksRealCoordinates, state);
             break;
 
         default:

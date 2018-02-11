@@ -1,15 +1,15 @@
 const SquareShape = {
 
-    offset: [0, 0],
-
-    coordinates: [
-        [-20, -20],
-        [-20, 20],
-        [20, 20],
-        [20, -20],
+    blocks: [
+        [-1, 0],
+        [0, 0],
+        [-1, 1],
+        [0, 1],
     ],
 
-    color: '#00FF00'
+    color: '#00FF00',
+
+    rotate: false,
 };
 
 export default SquareShape;

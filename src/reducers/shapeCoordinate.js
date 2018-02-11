@@ -1,4 +1,4 @@
-import { isInArea } from '../utils/Utils'
+import blockManagement from '../utils/BlockManagement'
 
 /**
  * Rotate a shape.
@@ -6,7 +6,7 @@ import { isInArea } from '../utils/Utils'
  * @param coordinates
  *      Coordinates of the shape to rotate.
  * @param reverse
- *      Rotate in other sens.
+ *      D.
  */
 const rotate = (coordinates, reverse = false) => {
     let newCoordinate = [];
@@ -36,15 +36,15 @@ const rotate = (coordinates, reverse = false) => {
 const shapeCoordinateReducer = (state = [], action) => {
     switch(action.type) {
         case 'NEW_SHAPE':
-            return action.payload.coordinates.map(c => {
-                return [c[0] + action.payload.offset[0], c[1] + action.payload.offset[1]];
-            });
+            return action.payload.blocks;
             break;
 
         case 'ROTATE':
-            const shapeCoordinateAfterRotate = rotate(state);
-            if (isInArea(shapeCoordinateAfterRotate, action.coordinate, action.area)) {
-                return shapeCoordinateAfterRotate;
+            if (action.shape.rotate === undefined || action.shape.rotate) {
+                const blocksAfterRotate = rotate(state);
+                if (blockManagement.blocksAreInArea(blocksAfterRotate, action.coordinate, action.area)) {
+                    return blocksAfterRotate;
+                }
             }
             return state;
             break;

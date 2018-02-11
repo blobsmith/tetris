@@ -13,10 +13,11 @@ export const newShapeAction = (shape) => ({
   payload: shape
 });
 
-export const rotateAction = (gameArea, coordinate) => ({
+export const rotateAction = (gameArea, coordinate, shape) => ({
   type: 'ROTATE',
   area: gameArea,
-  coordinate: coordinate
+  coordinate: coordinate,
+  shape: shape
 });
 
 export const fallDownAction = () => ({

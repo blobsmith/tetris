@@ -1,11 +1,9 @@
-import { isInArea } from '../utils/Utils'
+import blockManagement from '../utils/BlockManagement'
 
 const initCoordinate = {
-    x: 120,
-    y: 40
+    x: 6,
+    y: 2
 };
-
-const moveInterval = 20;
 
 const coordinateReducer = (state = initCoordinate, action) => {
     switch(action.type) {
@@ -17,9 +15,9 @@ const coordinateReducer = (state = initCoordinate, action) => {
         case 'GO_DOWN':
             const coordinateAfterGoDown = {
                 x: state.x,
-                y: state.y + moveInterval
+                y: state.y + 1
             };
-            if (isInArea(action.shapeCoordinate, coordinateAfterGoDown, action.area)) {
+            if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoDown, action.area)) {
                 return coordinateAfterGoDown;
             }
             return state;
@@ -27,30 +25,30 @@ const coordinateReducer = (state = initCoordinate, action) => {
 
         case 'GO_RIGHT':
             const coordinateAfterGoRight = {
-                x: state.x + moveInterval,
+                x: state.x + 1,
                 y: state.y
             };
-            if (isInArea(action.shapeCoordinate, coordinateAfterGoRight, action.area)) {
+            if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoRight, action.area)) {
                 return coordinateAfterGoRight;
             }
             return state;
             return {
-                x: state.x + moveInterval,
+                x: state.x + 1,
                 y: state.y
             };
             break;
 
         case 'GO_LEFT':
             const coordinateAfterGoLeft = {
-                x: state.x - moveInterval,
+                x: state.x - 1,
                 y: state.y
             };
-            if (isInArea(action.shapeCoordinate, coordinateAfterGoLeft, action.area)) {
+            if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoLeft, action.area)) {
                 return coordinateAfterGoLeft;
             }
             return state;
             return {
-                x: state.x + moveInterval,
+                x: state.x + 1,
                 y: state.y
             };
             break;

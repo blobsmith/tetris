@@ -22,7 +22,7 @@ class Controller extends React.Component  {
   onButtonCick (e) {
     switch (e.target.id) {
       case 'button-rotate':
-        this.props.rotate(this.props.gameArea, this.props.coordinates);
+        this.props.rotate(this.props.gameArea, this.props.coordinates, this.props.shape);
         break;
 
       case 'button-left':
@@ -47,7 +47,7 @@ class Controller extends React.Component  {
 
         // Up
       case 38:
-        this.props.rotate(this.props.gameArea, this.props.coordinates);
+        this.props.rotate(this.props.gameArea, this.props.coordinates, this.props.shape);
         break;
 
         // Right
@@ -88,23 +88,21 @@ const mapStatesToProps = (state) => {
   return {
     shapeCoordinate: state.shapeCoordinate,
     gameArea: state.area,
-    coordinates: state.coordinate
+    coordinates: state.coordinate,
+    shape: state.shape
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    rotate: (gameArea, coordinate) => {
-      dispatch(rotateAction(gameArea, coordinate));
+    rotate: (gameArea, coordinate, shape) => {
+      dispatch(rotateAction(gameArea, coordinate, shape));
     },
     goLeft: (gameArea, shapeCoordinate) => {
       dispatch(goLeftAction(gameArea, shapeCoordinate));
     },
     goRight: (gameArea, shapeCoordinate) => {
       dispatch(goRightAction(gameArea, shapeCoordinate));
-    },
-    insertShapeInGameArea: () => {
-      dispatch(insertShapeInAreaAction());
     }
   }
 };
