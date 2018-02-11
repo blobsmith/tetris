@@ -32,10 +32,6 @@ const coordinateReducer = (state = initCoordinate, action) => {
                 return coordinateAfterGoRight;
             }
             return state;
-            return {
-                x: state.x + 1,
-                y: state.y
-            };
             break;
 
         case 'GO_LEFT':
@@ -47,10 +43,15 @@ const coordinateReducer = (state = initCoordinate, action) => {
                 return coordinateAfterGoLeft;
             }
             return state;
-            return {
-                x: state.x + 1,
-                y: state.y
-            };
+            break;
+
+        case 'FALL_DOWN':
+            const downCoordinate = blockManagement.findLastDownPosition(action.shape.blocks, action.coordinate, action.area);
+            console.log(downCoordinate);
+            if (downCoordinate !== false) {
+                return downCoordinate;
+            }
+            return state;
             break;
 
         default:

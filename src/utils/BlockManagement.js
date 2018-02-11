@@ -3,6 +3,48 @@
  */
 class BlockManagement {
 
+  constructor() {
+
+    // All available shapes.
+    this.shapes = [
+      require('../shapes/BarShape'),
+      require('../shapes/InverseLShape'),
+      require('../shapes/InverseZShape'),
+      require('../shapes/LShape'),
+      require('../shapes/SquareShape'),
+      require('../shapes/TriangleShape'),
+      require('../shapes/ZShape')
+    ];
+  }
+
+  /**
+   * Get the selected shape.
+   *
+   * @param id
+   *    Number of shape defined in the shapes array.
+   *
+   * @returns Object
+   *    An object shape.
+   */
+  getShapeById = (id) => {
+    return this.shapes[id];
+  };
+
+  /**
+   * Return randomly a shape from all shapes defined in the shapes array.
+   *
+   * @returns Object
+   *    An object shape.
+   */
+  getShapeRandomly = () => {
+    const randomNumber = Math.floor((Math.random() * this.shapes.length));
+    const shape = this.shapes[randomNumber];
+    if (shape !== undefined) {
+      return shape.default;
+    }
+    return undefined;
+  };
+
   /**
    * Save the last blocks coordinates in the game area (before new shape...)
    *
@@ -75,8 +117,87 @@ class BlockManagement {
     }
     return inArea;
   };
+
+  /**
+   * Rotate a shape.
+   *
+   * @param coordinates
+   *      Blocks coordinates of the shape to rotate.
+   * @param reverse
+   *      true in order to inverse the rotation sens.
+   */
+  rotate = (coordinates, reverse = false) => {
+    let newCoordinate = [];
+    let rotateMatrix = [
+      [0, -1],
+      [1, 0]
+    ];
+    if (reverse) {
+      rotateMatrix = [
+        [0, 1],
+        [-1, 0]
+      ];
+    }
+
+    for (let key in coordinates) {
+      const position = coordinates[key];
+
+      // Dot product
+      newCoordinate.push([
+        position[0]*rotateMatrix[0][0] + position[1]*rotateMatrix[1][0],
+        position[0]*rotateMatrix[0][1] + position[1]*rotateMatrix[1][1],
+      ]);
+    }
+    return newCoordinate;
+  };
+
+  /**
+   * Find the best coordinate to falling down.
+   *
+   * @param blocks
+   *    The shape blocks.
+   * @param coordinate
+   *    Simple coordinate corresponding to fall position.
+   * @param area
+   *    The area map.
+   *
+   * @returns
+   *    The coordinate to falling down the shape.
+   */
+  findLastDownPosition = (blocks, coordinate, area) => {
+    const realCoordinate = this.getBlocksRealCoordinates(blocks, coordinate);
+    let newCoordinate = false;
+    let yPosition = 0;
+
+    for (let keyBlock in realCoordinate) {
+      const block = realCoordinate[keyBlock];
+      for (let i = 2;i > 0;i++) {
+        const val = area[i][block[0]];
+        if (val === 1) {
+          yPosition = i;
+          break;
+        }
+      }
+      if (yPosition !== 0){
+        break;
+      }
+    }
+
+    for(let linePosition = yPosition; linePosition > 0;linePosition--) {
+      const checkCoordinate = this.getBlocksRealCoordinates(blocks, {x: coordinate.x, y: linePosition});
+      if (this.blocksAreInArea(blocks, checkCoordinate, area)) {
+        newCoordinate = {x: coordinate.x, y: linePosition-1};
+        break;
+      }
+    }
+    if (newCoordinate === false) {
+      newCoordinate = {x: coordinate.x, y: 24};
+    }
+    // todo: wrong result, need to be debug.
+    return newCoordinate;
+  };
 }
 
-const blockMamgement = new BlockManagement();
-export default blockMamgement;
+const blockManagement = new BlockManagement();
+export default blockManagement;
 

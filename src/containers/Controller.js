@@ -2,7 +2,7 @@ import React  from 'react';
 import ReactDOM  from 'react-dom';
 import ControllerComponent from '../components/Controller';
 import '../styles/Controller.css';
-import { rotateAction, goLeftAction, goRightAction, insertShapeInAreaAction } from '../actions';
+import { rotateAction, goLeftAction, goRightAction, fallDownAction } from '../actions';
 import { connect } from 'react-redux';
 
 class Controller extends React.Component  {
@@ -57,7 +57,7 @@ class Controller extends React.Component  {
 
         // Fall down
       case 40:
-        console.log('fall down');
+        this.props.fallDown(this.props.gameArea, this.props.coordinates, this.props.shape);
         break;
 
       default:
@@ -103,6 +103,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     goRight: (gameArea, shapeCoordinate) => {
       dispatch(goRightAction(gameArea, shapeCoordinate));
+    },
+    fallDown: (ameArea, coordinate, shape) => {
+      dispatch(fallDownAction(ameArea, coordinate, shape));
     }
   }
 };

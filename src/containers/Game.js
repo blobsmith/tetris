@@ -3,28 +3,17 @@ import GameComponent from '../components/Game';
 import '../styles/Game.css';
 import { newShapeAction, goDownAction, newGameAction, initCoordinateAction, insertShapeInAreaAction } from '../actions';
 import { connect } from 'react-redux';
-
-/**
- * All available shapes.
- *
- * @type {*[]}
- */
-const shapes = [
-    require('../shapes/BarShape'),
-    require('../shapes/InverseLShape'),
-    require('../shapes/InverseZShape'),
-    require('../shapes/LShape'),
-    require('../shapes/SquareShape'),
-    require('../shapes/TriangleShape'),
-    require('../shapes/ZShape')
-  ];
+import blockManagement from '../utils/BlockManagement';
 
 class Game extends React.Component  {
 
   constructor(props) {
     super(props);
 
-    this.nextNewShape();
+    // Set a new shape.
+    this.props.newShape(blockManagement.getShapeRandomly());
+
+    // Set a new game.
     this.props.newGame();
   }
 
@@ -36,12 +25,7 @@ class Game extends React.Component  {
     // todo
 
     // Create a new shape.
-    this.nextNewShape();
-  }
-
-  nextNewShape() {
-    const randomNumber = Math.floor((Math.random() * shapes.length));
-    this.props.newShape(shapes[randomNumber].default);
+    this.props.newShape(blockManagement.getShapeRandomly());
   }
 
   componentDidMount() {

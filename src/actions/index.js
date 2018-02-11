@@ -10,7 +10,7 @@ export const insertShapeInAreaAction = (shapeCoordinate, coordinate) => ({
 
 export const newShapeAction = (shape) => ({
   type: 'NEW_SHAPE',
-  payload: shape
+  shape: shape
 });
 
 export const rotateAction = (gameArea, coordinate, shape) => ({
@@ -20,8 +20,11 @@ export const rotateAction = (gameArea, coordinate, shape) => ({
   shape: shape
 });
 
-export const fallDownAction = () => ({
-  type: 'FALL_DOWN'
+export const fallDownAction = (gameArea, coordinate, shape) => ({
+  type: 'FALL_DOWN',
+  area: gameArea,
+  coordinate: coordinate,
+  shape: shape
 });
 
 export const goRightAction = (gameArea, shapeCoordinate) => ({
