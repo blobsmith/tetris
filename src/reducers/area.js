@@ -1,4 +1,4 @@
-import blockManagement from '../utils/BlockManagement';
+import blockManagement from '../services/BlockManagement';
 
 const areaReducer = (state = [], action) => {
     let newMap = state;
@@ -17,6 +17,10 @@ const areaReducer = (state = [], action) => {
         case 'INSERT_SHAPE_IN_AREA':
             const blocksRealCoordinates = blockManagement.getBlocksRealCoordinates(action.shapeCoordinate, action.coordinate);
             newMap = blockManagement.setBlocksInArea(blocksRealCoordinates, state);
+            break;
+
+        case 'REMOVE_WHOLE_LINES':
+            newMap = blockManagement.blocksRemover(action.area, action.results);
             break;
 
         default:

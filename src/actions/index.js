@@ -38,3 +38,9 @@ export const goDownAction = (gameArea, shapeCoordinate) => ({
   shapeCoordinate: shapeCoordinate
 });
 
+export const removingWholeLinesAction = (gameArea, results = {}) => ({
+  type: 'REMOVE_WHOLE_LINES',
+  area: gameArea,
+  results: results
+});
+

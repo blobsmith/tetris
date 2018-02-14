@@ -1,4 +1,4 @@
-import blockManagement from '../utils/BlockManagement'
+import blockManagement from '../services/BlockManagement'
 
 const shapeCoordinateReducer = (state = [], action) => {
     let newShapeCoordinate = state;

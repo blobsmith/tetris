@@ -150,6 +150,32 @@ class BlockManagement {
     }
     return newCoordinate;
   };
+
+  blocksRemover = (area, results = {}) => {
+    let count = 0;
+    let newArea;
+    results['removed'] = 0;
+    const reducer = (accumulator, line) => {
+      count++;
+      if (count < 26) {
+        const isWholeLine = line.reduce((accumulator, currentValue) => accumulator && currentValue);
+        if (!isWholeLine) {
+          accumulator.push(line);
+        }
+        else {
+          results['removed']++;
+          accumulator.unshift([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
+        }
+      }
+      else {
+        accumulator.push(line);
+      }
+      return accumulator;
+    };
+    newArea = area.reduce(reducer, []);
+    return newArea;
+  }
+
 }
 
 const blockManagement = new BlockManagement();

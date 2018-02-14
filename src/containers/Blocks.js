@@ -2,7 +2,7 @@ import React from 'react';
 import {Group} from 'react-konva';
 import ShapeComponent from '../components/ShapeComponent';
 import { connect } from 'react-redux';
-import blockManagement from '../utils/BlockManagement';
+import blockManagement from '../services/BlockManagement';
 
 class Blocks extends React.Component {
 

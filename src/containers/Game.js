@@ -1,9 +1,9 @@
 import React  from 'react';
 import GameComponent from '../components/Game';
 import '../styles/Game.css';
-import { newShapeAction, goDownAction, newGameAction, insertShapeInAreaAction } from '../actions';
+import { newShapeAction, goDownAction, newGameAction, insertShapeInAreaAction, removingWholeLinesAction } from '../actions';
 import { connect } from 'react-redux';
-import blockManagement from '../utils/BlockManagement';
+import blockManagement from '../services/BlockManagement';
 
 class Game extends React.Component  {
 
@@ -20,6 +20,12 @@ class Game extends React.Component  {
   prepareNewShape() {
     // Save last shape coordinates to the map
     this.props.saveShapeInMap(this.props.shapeCoordinate, this.props.coordinate);
+
+    // Check for removing whole lines
+    let results = {};
+    this.props.removingWholeLines(this.props.gameArea, results);
+    console.log(results);
+
 
     // Update user points
     // todo
@@ -73,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     saveShapeInMap: (shapeCoordinate, coordinate) => {
       dispatch(insertShapeInAreaAction(shapeCoordinate, coordinate));
+    },
+    removingWholeLines: (gameArea, results) => {
+      dispatch(removingWholeLinesAction(gameArea, results));
     }
   }
 };
