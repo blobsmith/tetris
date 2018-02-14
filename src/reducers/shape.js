@@ -1,13 +1,15 @@
 
 const shapeReducer = (state = [], action) => {
+    let newShape = state;
     switch(action.type) {
         case 'NEW_SHAPE':
-            return action.shape;
+            newShape = action.shape;
             break;
 
         default:
-            return state;
+            newShape = state;
     }
+    return newShape;
 };
 
 

@@ -20,13 +20,6 @@ export const rotateAction = (gameArea, coordinate, shape) => ({
   shape: shape
 });
 
-export const fallDownAction = (gameArea, coordinate, shape) => ({
-  type: 'FALL_DOWN',
-  area: gameArea,
-  coordinate: coordinate,
-  shape: shape
-});
-
 export const goRightAction = (gameArea, shapeCoordinate) => ({
   type: 'GO_RIGHT',
   area: gameArea,

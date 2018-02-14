@@ -7,7 +7,7 @@ const InverseZShape = {
         [1, -1],
     ],
 
-    color: '#0000FF'
+    color: '#FFFF00'
 };
 
 export default InverseZShape;

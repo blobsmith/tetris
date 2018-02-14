@@ -19,7 +19,7 @@ class RemainingBlocks extends React.Component {
             const line = this.props.area[keyLine];
             for (const keyblock in line) {
                 const blockValue = line[keyblock];
-                if (keyLine != 25 && keyblock != 0 && keyblock != 11 && blockValue == 1) {
+                if (keyLine !== 25 && keyblock !== 0 && keyblock !== 11 && blockValue === 1) {
                     const x = keyblock*this.state.blockSize;
                     const y = keyLine*this.state.blockSize;
                     const shape = [

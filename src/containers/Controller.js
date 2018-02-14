@@ -2,7 +2,7 @@ import React  from 'react';
 import ReactDOM  from 'react-dom';
 import ControllerComponent from '../components/Controller';
 import '../styles/Controller.css';
-import { rotateAction, goLeftAction, goRightAction, fallDownAction } from '../actions';
+import { rotateAction, goLeftAction, goRightAction, goDownAction } from '../actions';
 import { connect } from 'react-redux';
 
 class Controller extends React.Component  {
@@ -32,6 +32,14 @@ class Controller extends React.Component  {
       case 'button-right':
         this.props.goRight(this.props.gameArea, this.props.shapeCoordinate);
         break;
+
+      case 'button-down':
+        this.props.goDown(this.props.gameArea, this.props.shapeCoordinate);
+        break;
+
+      default:
+        return;
+
     }
   }
 
@@ -57,7 +65,7 @@ class Controller extends React.Component  {
 
         // Fall down
       case 40:
-        this.props.fallDown(this.props.gameArea, this.props.coordinates, this.props.shape);
+        this.props.goDown(this.props.gameArea, this.props.shapeCoordinate);
         break;
 
       default:
@@ -104,9 +112,9 @@ const mapDispatchToProps = (dispatch) => {
     goRight: (gameArea, shapeCoordinate) => {
       dispatch(goRightAction(gameArea, shapeCoordinate));
     },
-    fallDown: (ameArea, coordinate, shape) => {
-      dispatch(fallDownAction(ameArea, coordinate, shape));
-    }
+    goDown: (gameArea, shapeCoordinate) => {
+      dispatch(goDownAction(gameArea, shapeCoordinate));
+    },
   }
 };
 

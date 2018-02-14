@@ -6,10 +6,11 @@ const initCoordinate = {
 };
 
 const coordinateReducer = (state = initCoordinate, action) => {
+    let newCoordinate = state;
     switch(action.type) {
 
         case 'NEW_SHAPE':
-            return initCoordinate;
+            newCoordinate = initCoordinate;
             break;
 
         case 'GO_DOWN':
@@ -18,9 +19,8 @@ const coordinateReducer = (state = initCoordinate, action) => {
                 y: state.y + 1
             };
             if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoDown, action.area)) {
-                return coordinateAfterGoDown;
+                newCoordinate = coordinateAfterGoDown;
             }
-            return state;
             break;
 
         case 'GO_RIGHT':
@@ -29,9 +29,8 @@ const coordinateReducer = (state = initCoordinate, action) => {
                 y: state.y
             };
             if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoRight, action.area)) {
-                return coordinateAfterGoRight;
+                newCoordinate =  coordinateAfterGoRight;
             }
-            return state;
             break;
 
         case 'GO_LEFT':
@@ -40,23 +39,14 @@ const coordinateReducer = (state = initCoordinate, action) => {
                 y: state.y
             };
             if (blockManagement.blocksAreInArea(action.shapeCoordinate, coordinateAfterGoLeft, action.area)) {
-                return coordinateAfterGoLeft;
+                newCoordinate = coordinateAfterGoLeft;
             }
-            return state;
-            break;
-
-        case 'FALL_DOWN':
-            const downCoordinate = blockManagement.findLastDownPosition(action.shape.blocks, action.coordinate, action.area);
-            console.log(downCoordinate);
-            if (downCoordinate !== false) {
-                return downCoordinate;
-            }
-            return state;
             break;
 
         default:
-            return state;
+            newCoordinate = state;
     }
+    return newCoordinate;
 };
 
 

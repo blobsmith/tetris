@@ -7,7 +7,7 @@ const InverseLShape = {
         [-1, 1],
     ],
 
-    color: '#0000FF'
+    color: '#819FF7'
 };
 
 export default InverseLShape;

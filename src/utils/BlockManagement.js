@@ -85,7 +85,7 @@ class BlockManagement {
     if (coordinates !== undefined && coordinates.x !== undefined && coordinates.y !== undefined ) {
       for (const key in blocks) {
         let block = blocks[key];
-        realCoordinates.push([(parseInt(coordinates.x) + parseInt(block[0]))*blockSize, (parseInt(coordinates.y) + parseInt(block[1]))*blockSize]);
+        realCoordinates.push([(parseInt(coordinates.x, 10) + parseInt(block[0], 10))*blockSize, (parseInt(coordinates.y, 10) + parseInt(block[1], 10))*blockSize]);
       }
     }
     return realCoordinates;
@@ -148,52 +148,6 @@ class BlockManagement {
         position[0]*rotateMatrix[0][1] + position[1]*rotateMatrix[1][1],
       ]);
     }
-    return newCoordinate;
-  };
-
-  /**
-   * Find the best coordinate to falling down.
-   *
-   * @param blocks
-   *    The shape blocks.
-   * @param coordinate
-   *    Simple coordinate corresponding to fall position.
-   * @param area
-   *    The area map.
-   *
-   * @returns
-   *    The coordinate to falling down the shape.
-   */
-  findLastDownPosition = (blocks, coordinate, area) => {
-    const realCoordinate = this.getBlocksRealCoordinates(blocks, coordinate);
-    let newCoordinate = false;
-    let yPosition = 0;
-
-    for (let keyBlock in realCoordinate) {
-      const block = realCoordinate[keyBlock];
-      for (let i = 2;i > 0;i++) {
-        const val = area[i][block[0]];
-        if (val === 1) {
-          yPosition = i;
-          break;
-        }
-      }
-      if (yPosition !== 0){
-        break;
-      }
-    }
-
-    for(let linePosition = yPosition; linePosition > 0;linePosition--) {
-      const checkCoordinate = this.getBlocksRealCoordinates(blocks, {x: coordinate.x, y: linePosition});
-      if (this.blocksAreInArea(blocks, checkCoordinate, area)) {
-        newCoordinate = {x: coordinate.x, y: linePosition-1};
-        break;
-      }
-    }
-    if (newCoordinate === false) {
-      newCoordinate = {x: coordinate.x, y: 24};
-    }
-    // todo: wrong result, need to be debug.
     return newCoordinate;
   };
 }

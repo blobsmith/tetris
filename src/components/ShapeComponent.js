@@ -12,11 +12,11 @@ const ShapeComponent = ( props ) => (
     for (const key in props.coordinates) {
         let point = props.coordinates[key];
         if (first) {
-            ctx.moveTo(parseInt(point[0]), parseInt(point[1]));
+            ctx.moveTo(parseInt(point[0], 10), parseInt(point[1], 10));
             first = false;
         }
         else {
-            ctx.lineTo(parseInt(point[0]), parseInt(point[1]));
+            ctx.lineTo(parseInt(point[0], 10), parseInt(point[1], 10));
         }
     }
     ctx.shadowColor = 'white';
@@ -26,6 +26,6 @@ const ShapeComponent = ( props ) => (
     ctx.fillStrokeShape(this);
     }}
     />
-)
+);
 
 export default ShapeComponent

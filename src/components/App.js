@@ -12,5 +12,5 @@ const App = ( props ) => (
         </header>
         <Game />
     </div>
-)
+);
 export default App

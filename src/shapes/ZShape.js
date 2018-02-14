@@ -7,7 +7,7 @@ const ZShape = {
         [1, 0],
     ],
 
-    color: '#FF0000'
+    color: '#FA5858'
 };
 
 export default ZShape;

@@ -1,7 +1,7 @@
 import React  from 'react';
 import GameComponent from '../components/Game';
 import '../styles/Game.css';
-import { newShapeAction, goDownAction, newGameAction, initCoordinateAction, insertShapeInAreaAction } from '../actions';
+import { newShapeAction, goDownAction, newGameAction, insertShapeInAreaAction } from '../actions';
 import { connect } from 'react-redux';
 import blockManagement from '../utils/BlockManagement';
 

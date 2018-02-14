@@ -20,5 +20,5 @@ const Controller = ( props ) => (
             </div>
         </div>
     </div>
-)
+);
 export default Controller
