@@ -151,10 +151,20 @@ class BlockManagement {
     return newCoordinate;
   };
 
-  blocksRemover = (area, results = {}) => {
+  /**
+   * Remove whole lines
+   *
+   * @param area
+   *    Game area.
+   * @param gameStat
+   *    Stats service.
+   *
+   * @returns {*}
+   *    New game area.
+   */
+  blocksRemover = (area, gameStat) => {
     let count = 0;
     let newArea;
-    results['removed'] = 0;
     const reducer = (accumulator, line) => {
       count++;
       if (count < 26) {
@@ -163,7 +173,7 @@ class BlockManagement {
           accumulator.push(line);
         }
         else {
-          results['removed']++;
+          gameStat.lineRemoved(count);
           accumulator.unshift([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
         }
       }

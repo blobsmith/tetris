@@ -20,7 +20,7 @@ const areaReducer = (state = [], action) => {
             break;
 
         case 'REMOVE_WHOLE_LINES':
-            newMap = blockManagement.blocksRemover(action.area, action.results);
+            newMap = blockManagement.blocksRemover(action.area, action.gameStat);
             break;
 
         default:

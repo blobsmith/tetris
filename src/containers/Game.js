@@ -4,6 +4,7 @@ import '../styles/Game.css';
 import { newShapeAction, goDownAction, newGameAction, insertShapeInAreaAction, removingWholeLinesAction } from '../actions';
 import { connect } from 'react-redux';
 import blockManagement from '../services/BlockManagement';
+import gameStat from '../services/GameStat';
 
 class Game extends React.Component  {
 
@@ -22,9 +23,8 @@ class Game extends React.Component  {
     this.props.saveShapeInMap(this.props.shapeCoordinate, this.props.coordinate);
 
     // Check for removing whole lines
-    let results = {};
-    this.props.removingWholeLines(this.props.gameArea, results);
-    console.log(results);
+    this.props.removingWholeLines(this.props.gameArea, gameStat);
+    console.log(gameStat.getPoints());
 
 
     // Update user points
