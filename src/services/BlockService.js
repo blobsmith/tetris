@@ -1,7 +1,7 @@
 /**
  * Manage blocks coordinates and blocks coordinates in area.
  */
-class BlockManagement {
+class BlockService {
 
   constructor() {
 
@@ -173,7 +173,7 @@ class BlockManagement {
           accumulator.push(line);
         }
         else {
-          gameStat.lineRemoved(count);
+          gameStat.setLineRemoved(count);
           accumulator.unshift([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
         }
       }
@@ -188,6 +188,6 @@ class BlockManagement {
 
 }
 
-const blockManagement = new BlockManagement();
-export default blockManagement;
+const blockService = new BlockService();
+export default blockService;
 

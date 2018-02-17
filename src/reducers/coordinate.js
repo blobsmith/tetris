@@ -1,4 +1,4 @@
-import blockManagement from '../services/BlockManagement'
+import blockManagement from '../services/BlockService'
 
 const initCoordinate = {
     x: 6,

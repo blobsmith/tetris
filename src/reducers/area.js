@@ -1,4 +1,4 @@
-import blockManagement from '../services/BlockManagement';
+import blockManagement from '../services/BlockService';
 
 const areaReducer = (state = [], action) => {
     let newMap = state;

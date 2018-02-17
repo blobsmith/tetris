@@ -3,13 +3,17 @@ import GameComponent from '../components/Game';
 import '../styles/Game.css';
 import { newShapeAction, goDownAction, newGameAction, insertShapeInAreaAction, removingWholeLinesAction } from '../actions';
 import { connect } from 'react-redux';
-import blockManagement from '../services/BlockManagement';
-import gameStat from '../services/GameStat';
+import blockManagement from '../services/BlockService';
+import gameStat from '../services/GameStatService';
 
 class Game extends React.Component  {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      points: 0
+    };
 
     // Set a new shape.
     this.props.newShape(blockManagement.getShapeRandomly());
@@ -23,12 +27,17 @@ class Game extends React.Component  {
     this.props.saveShapeInMap(this.props.shapeCoordinate, this.props.coordinate);
 
     // Check for removing whole lines
+    gameStat.resetStats();
     this.props.removingWholeLines(this.props.gameArea, gameStat);
-    console.log(gameStat.getPoints());
-
+    gameStat.performStats();
+    const points = gameStat.getPoints();
 
     // Update user points
-    // todo
+    if (points > 0){
+      this.setState({
+        points: this.state.points + points
+      });
+    }
 
     // Create a new shape.
     this.props.newShape(blockManagement.getShapeRandomly());
