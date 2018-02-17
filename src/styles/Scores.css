@@ -1,0 +1,39 @@
+#scores-container {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 260px;
+}
+
+#scores-panel {
+  content: '9324834';
+  margin: auto;
+  padding-right: 350px;
+  width: 200px;
+  weight: 60px;
+}
+
+#points {
+  border: 1px solid black;
+  width: 148px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 6px;
+  margin-bottom: 1px;
+  margin-right: 1px;
+  padding: 2px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+#points-label {
+  text-align: center;
+  font-weight: bold;
+  margin-right: 40px;
+  line-height: 19px;
+  height: 19px;
+}
+

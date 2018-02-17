@@ -8,7 +8,7 @@ const App = ( props ) => (
          tabIndex="0">
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title" >Tetris made with React</h1>
+            <h1 className="App-title" >Tetris made with React/Redux/Konva</h1>
         </header>
         <Game />
     </div>

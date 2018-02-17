@@ -12,7 +12,8 @@ class Game extends React.Component  {
     super(props);
 
     this.state = {
-      points: 0
+      points: 0,
+      gameState: 'play'
     };
 
     // Set a new shape.
@@ -45,7 +46,7 @@ class Game extends React.Component  {
 
   componentDidMount() {
     var self = this;
-    this.timerID = setInterval(function() {
+    self.timerID = setInterval(function() {
       const coordinate = self.props.coordinate;
       self.props.goDown(self.props.gameArea, self.props.shapeCoordinate);
 
@@ -54,14 +55,17 @@ class Game extends React.Component  {
         self.prepareNewShape.apply(self);
 
         // If last coordinates are the same than shape coordinate at the beginning, it's game over.
-        // todo
+        if (coordinate.y === self.props.coordinate.y) {
+            clearInterval(self.timerID);
+            self.setState({gameState: 'gameOver'});
+        }
       }
     }, 500);
   }
 
   render() {
     return (
-        <GameComponent />
+        <GameComponent gameState={this.state.gameState} points={this.state.points} />
     );
   }
 }
