@@ -11,9 +11,14 @@ class Game extends React.Component  {
   constructor(props) {
     super(props);
 
+    // Game states
+    this.PLAY = 'play';
+    this.GAME_OVER = 'gameOver';
+    this.INIT_POINTS = 0;
+
     this.state = {
-      points: 0,
-      gameState: 'play'
+      points: this.INIT_POINTS,
+      gameState: this.PLAY
     };
 
     // Set a new shape.
@@ -47,25 +52,38 @@ class Game extends React.Component  {
   componentDidMount() {
     var self = this;
     self.timerID = setInterval(function() {
-      const coordinate = self.props.coordinate;
-      self.props.goDown(self.props.gameArea, self.props.shapeCoordinate);
+      if (self.state.gameState === self.PLAY) {
+        const coordinate = self.props.coordinate;
+        self.props.goDown(self.props.gameArea, self.props.shapeCoordinate);
 
-      // If the shape can't go down, it's time to next shape.
-      if (coordinate.y === self.props.coordinate.y) {
-        self.prepareNewShape.apply(self);
-
-        // If last coordinates are the same than shape coordinate at the beginning, it's game over.
+        // If the shape can't go down, it's time to next shape.
         if (coordinate.y === self.props.coordinate.y) {
-            clearInterval(self.timerID);
-            self.setState({gameState: 'gameOver'});
+          self.prepareNewShape.apply(self);
+
+          // If last coordinates are the same than shape coordinate at the beginning, it's game over.
+          if (coordinate.y === self.props.coordinate.y) {
+            self.setState({gameState: self.GAME_OVER});
+          }
         }
       }
     }, 500);
   }
 
+  playOnClick = () => {
+    this.props.newGame();
+    this.setState({
+      points: this.INIT_POINTS,
+      gameState: this.PLAY
+    });
+  };
+
   render() {
     return (
-        <GameComponent gameState={this.state.gameState} points={this.state.points} />
+        <GameComponent
+            gameState={this.state.gameState}
+            points={this.state.points}
+            playOnClick={this.playOnClick}
+        />
     );
   }
 }

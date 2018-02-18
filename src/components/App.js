@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../images/logo.svg';
 import Game from '../containers/Game';
 
+
 const App = ( props ) => (
     <div className="App"
          onKeyDown={props.onKeyPressed}

@@ -2,7 +2,7 @@ import blockManagement from '../services/BlockService'
 
 const initCoordinate = {
     x: 6,
-    y: 2
+    y: 1
 };
 
 const coordinateReducer = (state = initCoordinate, action) => {

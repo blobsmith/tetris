@@ -105,13 +105,15 @@ class BlockService {
    */
   blocksAreInArea = (blocks, coordinate, area) => {
     let inArea = true;
-    if (coordinate !== undefined) {
+    if (coordinate !== undefined && area !== undefined) {
       const blocksRealCoordinates = this.getBlocksRealCoordinates(blocks, coordinate);
       for(const key in blocksRealCoordinates) {
         const blockCoordinate = blocksRealCoordinates[key];
-        if (area[blockCoordinate[1]][(blockCoordinate[0])] !== 0) {
-          inArea = false;
-          break;
+        if (area[blockCoordinate[1]] !== undefined) {
+          if (area[blockCoordinate[1]][(blockCoordinate[0])] !== 0) {
+            inArea = false;
+            break;
+          }
         }
       }
     }

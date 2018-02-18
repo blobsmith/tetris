@@ -5,7 +5,7 @@ const ShapeComponent = ( props ) => (
     <Shape
         fill={props.color}
         stroke="black"
-        opacity="0.7"
+        opacity="0.8"
     sceneFunc={function (ctx) {
     ctx.beginPath();
     let first = true;
